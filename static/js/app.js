@@ -65,6 +65,12 @@ function DrawBubblechart(sampleId)
       
       var bubbleLayout = {
         title: 'Belly Button Bacteria Samples',
+        xaxis: {title: otu_labels,
+            },
+          
+
+
+
       };
       
       Plotly.newPlot('bubble', bubbleArray, bubbleLayout);
@@ -72,8 +78,6 @@ function DrawBubblechart(sampleId)
     });
 
 };
-
-
 
 
 function ShowMetadata(sampleId)
@@ -95,11 +99,6 @@ function ShowMetadata(sampleId)
 
         });
     });
-}
-
-function DrawGauge(sampleId)
-{
-    console.log(`Calling DrawGauge(${sampleId})`);
 }
 
 
@@ -136,7 +135,6 @@ function InitDashboard()
 
         DrawBargraph(sampleId);
         DrawBubblechart(sampleId);
-        DrawGauge(sampleId);
         ShowMetadata(sampleId);
 
     });
