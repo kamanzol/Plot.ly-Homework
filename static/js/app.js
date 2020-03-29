@@ -37,7 +37,44 @@ function DrawBargraph(sampleId)
 function DrawBubblechart(sampleId)
 {
     console.log(`Calling DrawBubblechart(${sampleId})`);
-}
+    d3.json("samples.json").then((data) => {
+
+
+    var samples = data.samples;
+    var resultArray = samples.filter(s => s.id == sampleId);
+    var result = resultArray[0];
+
+    var otu_ids = result.otu_ids;
+    var otu_labels = result.otu_labels;
+    var sample_values = result.sample_values;
+
+    var bubbleData = {
+        type: "scatter",
+        mode: "markers",
+        x: otu_ids,
+        y: sample_values,
+        text: otu_labels,
+        marker: {
+          color: otu_ids,
+          size: sample_values,
+          sizemode: "area"
+        }
+      };
+      
+      var bubbleArray = [bubbleData];
+      
+      var bubbleLayout = {
+        title: 'Belly Button Bacteria Samples',
+      };
+      
+      Plotly.newPlot('bubble', bubbleArray, bubbleLayout);
+
+    });
+
+};
+
+
+
 
 function ShowMetadata(sampleId)
 {
@@ -53,7 +90,7 @@ function ShowMetadata(sampleId)
 
         Panel.html("");
         Object.entries(result).forEach(([key, value]) => {
-            var textToShow = "Lots of stuff here!"; // add keys and values with $
+            var textToShow = `${key}: ${value}`;
             Panel.append("h6").text(textToShow);
 
         });
